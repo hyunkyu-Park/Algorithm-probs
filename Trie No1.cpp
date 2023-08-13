@@ -129,8 +129,6 @@ int main(int argc, char** argv)
 		//다 삽입하고 dfs 검색하면 사전순으로 나온다
 		root.find(index, 0);
 		cout << "#" << test_case <<" " << real_ans << "\n";
-
-
 	}
 	return 0;
 }
