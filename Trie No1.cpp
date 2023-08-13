@@ -1,4 +1,5 @@
-
+//https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18GHd6IskCFAZN
+//[S/W 문제해결 응용] 6일차 - K번째 접미어
 #include<iostream>
 #include<cstring>
 #include<vector>
@@ -6,11 +7,11 @@
 
 using namespace std;
 string arr;
-char ans[26];
-bool visited[26];
+char ans[401];
+vector<bool> visited;
 int num_order =0;
 int order = 0;
-char real_ans[26];
+char real_ans[401];
 bool find_ans;
 
 class Trie{
@@ -29,9 +30,10 @@ class Trie{
     };
 
     vector<TrieNode> nodes; //vector stores all nodes of the Trie.
+	vector<bool> visited; //vector to check if the nodes is already visited
 
     public:
-        Trie() : nodes(1) {}; //The constructor of the Trie class initializes the nodes vector with a size of 1.
+        Trie() : nodes(1), visited(1) {}; //The constructor of the Trie class initializes nodes vector and visited vector with a size of 1.
         //클래스의 생성자는 nodes 벡터를 크기 1로 초기화
 
     void init(){
@@ -45,6 +47,7 @@ class Trie{
 			if (nodes[node_id].child[c - OFFSET] == -1) {
 				nodes[node_id].child[c - OFFSET] = nodes.size();
 				nodes.emplace_back();
+				visited.emplace_back();
 			}
 			node_id = nodes[node_id].child[c - OFFSET];
 		}
@@ -62,17 +65,6 @@ class Trie{
 		nodes[node_id].is_terminal = false;
 	}
 
-	// bool find(const std::string& str) const {
-	// 	int node_id = 0;
-	// 	for (const auto& c : str) {
-	// 		if (nodes[node_id].child[c - OFFSET] == -1) {
-	// 			return false;
-	// 		}
-	// 		node_id = nodes[node_id].child[c - OFFSET];
-	// 	}
-	// 	return nodes[node_id].is_terminal;
-	// }
-
 	void find(int index, int vertex){
 
 		if(find_ans){
@@ -86,8 +78,7 @@ class Trie{
 				find_ans = true;
 				for(int i=0; i<num_order; ++i){
 					real_ans[i] = ans[i];
-				}
-				
+				}			
 				return;
 			}
 		}
@@ -99,9 +90,6 @@ class Trie{
 				find(index, nodes[vertex].child[i]);
 				num_order--;
 			}
-			auto check = nodes[vertex].child[i];
-			auto check1 = visited[nodes[vertex].child[i]];
-			
 		}
 		
 	}
@@ -120,12 +108,6 @@ int main(int argc, char** argv)
 
 	for(test_case = 1; test_case <= T; ++test_case)
 	{
-		memset(ans, 0, sizeof(ans));
-		memset(visited, false, sizeof(visited));
-		memset(real_ans, 0, sizeof(real_ans));
-		order =0;
-		num_order =0;
-		
 		int index;
 		cin >> index;
 
@@ -137,17 +119,18 @@ int main(int argc, char** argv)
 			root.insert(arr.substr(i));
 		}
 
-		
+		memset(ans, 0, sizeof(ans));
+		memset(real_ans, 0, sizeof(real_ans));
+		order =0;
+		num_order =0;
+		find_ans = false;
+
 		//If you search for dfs in reverse order(26-0), it comes in dictionary order after insertion
 		//다 삽입하고 dfs 검색하면 사전순으로 나온다
 		root.find(index, 0);
 		cout << "#" << test_case <<" " << real_ans << "\n";
 
-		
-		
-		
-		
 
 	}
-	return 0;//정상종료시 반드시 0을 리턴해야합니다.
+	return 0;
 }
