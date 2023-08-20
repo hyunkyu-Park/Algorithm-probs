@@ -21,8 +21,6 @@ struct NEWS{
 	}
 };
 
-
-
 unordered_map<int, int> user_info; //Hash to change uID to idx for user_pool
 unordered_map<int, int> news_info; //Hash to change NewsID to idx for news_pool
 unordered_map<int, int> channel_info; //Hash to change ChannelID to idx for channel_pool
