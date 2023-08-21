@@ -1,3 +1,5 @@
+//지연 처리
+
 #include <unordered_map>
 #include <vector>
 #include <queue>
