@@ -16,7 +16,7 @@ int segtree[2 * n];
 void init() {
     // segment tree starts from index 1. It does not use index 0 in array
     // store the elements of the array at leaf nodes of segment tree
-    for (size_t i = 0; i < n; ++i) {  //segtree의 5, 6, 7, 8, 9에(리프노드들) a[n]의 값들을 저장한다
+    for (size_t i = 0; i < n; ++i) {  //store values in array a at leaf nodes(5, 6, 7 ,8, 9) in the segment tree
         segtree[i + n] = a[i];
     }
 
